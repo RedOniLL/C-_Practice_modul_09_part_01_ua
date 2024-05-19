@@ -4,7 +4,7 @@
 
     public delegate double ArithmeticOperation(double x, double y);
 
-    public delegate bool Predicate(int number);
+    public delegate bool Predicate<T>(T number);
     class Program
     {
         static void Main(string[] args)
@@ -14,14 +14,14 @@
 
             MessageDelegate messageDelegate;
 
-            messageDelegate = DisplayMessage1;
+            messageDelegate = DisplayMessage;
             messageDelegate("This is the first message.");
 
-            messageDelegate = DisplayMessage2;
-            messageDelegate("This is the second message.");
+            messageDelegate = DisplayUppercaseMessage;
+            messageDelegate("This is the uppercase message.");
 
-            messageDelegate = DisplayMessage3;
-            messageDelegate("This is the third message.");
+            messageDelegate = DisplayLowercaseMessage;
+            messageDelegate("This is the lowercase message.");
 
             Console.WriteLine("-----------------------");
 
@@ -42,10 +42,10 @@
 
             Console.WriteLine("Task3: ");
 
-            Predicate isEven = IsEven;
-            Predicate isOdd = IsOdd;
-            Predicate isPrime = IsPrime;
-            Predicate isFibonacci = IsFibonacci;
+            Predicate<int> isEven = IsEven;
+            Predicate<int> isOdd = IsOdd;
+            Predicate<int> isPrime = IsPrime;
+            Predicate<int> isFibonacci = IsFibonacci;
 
             int number = 13;
 
@@ -55,22 +55,20 @@
             Console.WriteLine($"{number} is a Fibonacci number: {CheckNumber(isFibonacci, number)}");
         }
 
-    
-        static void DisplayMessage1(string message)
+
+        public static void DisplayMessage(string message)
         {
-            Console.WriteLine(message);
+            Console.WriteLine("Original Message: " + message);
         }
 
-
-        static void DisplayMessage2(string message)
+        public static void DisplayUppercaseMessage(string message)
         {
-            Console.WriteLine(message);
+            Console.WriteLine("Uppercase Message: " + message.ToUpper());
         }
 
-
-        static void DisplayMessage3(string message)
+        public static void DisplayLowercaseMessage(string message)
         {
-            Console.WriteLine(message);
+            Console.WriteLine("Lowercase Message: " + message.ToLower());
         }
 
         public static double Add(double x, double y)
@@ -126,7 +124,7 @@
             return b == number || number == 0;
         }
 
-        public static bool CheckNumber(Predicate predicate, int number)
+        public static bool CheckNumber(Predicate<int> predicate, int number)
         {
             return predicate(number);
         }
